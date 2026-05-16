@@ -5,6 +5,16 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const ytSearch = require('yt-search');
 
+// Capturer toutes les erreurs non gérées pour les afficher dans les logs Render
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT EXCEPTION:', err);
+  process.exit(1);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('UNHANDLED REJECTION:', reason);
+  process.exit(1);
+});
+
 const app = express();
 app.use(cors());
 app.use(express.json()); // Indispensable pour traiter les requêtes POST JSON
